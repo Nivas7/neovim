@@ -1,31 +1,26 @@
+local has = require("lazyvim.util").has
+
 return {
-  "ellisonleao/gruvbox.nvim",
-  priority = 1000,
-  config = function()
-    require("gruvbox").setup({
-      terminal_colors = true, -- add neovim terminal colors
-      undercurl = true,
-      underline = true,
-      bold = true,
-      italic = {
-        strings = true,
-        emphasis = true,
-        comments = true,
-        operators = false,
-        folds = true,
-      },
-      strikethrough = true,
-      invert_selection = false,
-      invert_signs = false,
-      invert_tabline = false,
-      invert_intend_guides = false,
-      inverse = true, -- invert background for search, diffs, statuslines and errors
-      contrast = "", -- can be "hard", "soft" or empty string
-      palette_overrides = {},
-      overrides = {},
-      dim_inactive = false,
-      transparent_mode = true,
-    })
-    vim.cmd("colorscheme gruvbox")
-  end,
+  { "catppuccin", enabled = false },
+
+  {
+    "2nthony/vitesse.nvim",
+    dependencies = {
+      "tjdevries/colorbuddy.nvim",
+    },
+    opts = {
+      reverse_visual = true,
+      dim_nc = true,
+      cmp_cmdline_disable_search_highlight_group = true,
+      diagnostic_virtual_text_background = true,
+    },
+  },
+  {
+    "LazyVim",
+    opts = function(_, opts)
+      if has("vitesse.nvim") then
+        opts.colorscheme = "vitesse"
+      end
+    end,
+  },
 }
